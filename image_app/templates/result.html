@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Enhancement - Result</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    img {
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #ff9800;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #e68900;
+    }
+    .history {
+      margin-top: 40px;
+    }
+    .history img {
+      width: 150px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 2px solid white;
+    }
+  </style>
+</head>
+<body>
+  <h1>✨ Image Enhanced with <span style="color:#ffeb3b;">{{ effect }}</span> ✨</h1>
+
+  <div class="image-container">
+    <div>
+      <h3>Original Image</h3>
+      <img src="{{ original_image }}" alt="Original">
+    </div>
+    <div>
+      <h3>Enhanced Image</h3>
+      <img src="{{ processed_image }}" alt="Enhanced">
+    </div>
+  </div>
+
+  <!-- Download Button -->
+  <a href="{{ processed_image }}" download class="btn">⬇ Download Enhanced</a>
+
+  <!-- Share Buttons -->
+  <div>
+    <h2>🔗 Share Your Image</h2>
+    <a class="btn" href="https://api.whatsapp.com/send?text=Check out my enhanced image! {{ request.host_url }}{{ processed_image }}" target="_blank">📱 WhatsApp</a>
+    <a class="btn" href="mailto:?subject=My Enhanced Image&body=See my image here: {{ request.host_url }}{{ processed_image }}">✉ Email</a>
+    <a class="btn" href="https://www.instagram.com/" target="_blank">📸 Instagram (manual upload)</a>
+  </div>
+
+  <!-- History -->
+  <div class="history">
+    <h2>🖼 Recent Uploads</h2>
+    {% if history %}
+      {% for img in history %}
+        <img src="{{ img }}" alt="History">
+      {% endfor %}
+    {% else %}
+      <p>No recent uploads yet.</p>
+    {% endif %}
+  </div>
+
+  <a href="/" class="btn">⬅ Upload Another</a>
+</body>
+</html>
